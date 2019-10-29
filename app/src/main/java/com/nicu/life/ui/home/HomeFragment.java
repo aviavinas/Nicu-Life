@@ -21,8 +21,7 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        return root;
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     @Override
@@ -35,8 +34,10 @@ public class HomeFragment extends Fragment {
 
         Query q1 = db.getDb().collection("category");
         Query q2 = db.getDb().collection("product");
+        Query q3 = db.getDb().collection("product");
 
         recycler.setCategoryRecycler(q1, R.id.catRecycle);
         recycler.setProductRecycler(q2, R.id.prodRecycle);
+        recycler.setProductMenuRecycler(q3, R.id.prodMenuRecycle);
     }
 }

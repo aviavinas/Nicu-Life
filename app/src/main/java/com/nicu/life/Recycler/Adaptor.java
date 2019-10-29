@@ -140,6 +140,62 @@ public class Adaptor {
         }
     }
 
+    public static class ProductMenu extends FirestoreRecyclerAdapter<Card.Product, ProductMenu.ProductHolder> {
+        private OnItemClickListener listener;
+
+        public ProductMenu(@NonNull FirestoreRecyclerOptions<Card.Product> options) {
+            super(options);
+        }
+
+        @Override
+        protected void onBindViewHolder(@NonNull final ProductHolder viewHolder, int i, @NonNull Card.Product card) {
+            viewHolder.title.setText(card.getTitle());
+
+            try {
+                Glide.with(viewHolder.itemView.getContext()).applyDefaultRequestOptions(new RequestOptions().override(132, 150))
+                        .load(FireStorage.getInstance().getImgRef(card.getImg())).into(viewHolder.img);
+            } catch (Exception ex) {}
+        }
+
+        @NonNull
+        @Override
+        public ProductHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_menu, parent, false);
+            return new ProductHolder(v);
+        }
+
+        public class ProductHolder extends RecyclerView.ViewHolder {
+            private TextView title;
+            private ImageView img;
+
+            public ProductHolder(@NonNull final View itemView) {
+                super(itemView);
+
+                title = itemView.findViewById(R.id.title);
+                img = itemView.findViewById(R.id.img);
+
+//                itemView.setOnClickListener(v -> {
+//                    int pos = getAdapterPosition();
+//                    if(pos!=RecyclerView.NO_POSITION && listener!=null) {
+//                        DocumentSnapshot currentSnapshot = getSnapshots().getSnapshot(pos);
+//
+//                        Intent classRoomIntent = new Intent(itemView.getContext() , MyClassRoom.class);
+//                        classRoomIntent.putExtra("courseId", currentSnapshot.getId());
+//                        itemView.getContext().startActivity(classRoomIntent);
+//                    }
+//                });
+            }
+        }
+
+        public interface OnItemClickListener {
+            void onItemClick(DocumentSnapshot documentSnapshot, int pos);
+        }
+
+        void setOnItemClickListener(OnItemClickListener listener) {
+            this.listener = listener;
+        }
+    }
+
     private static void pin(String msg) {
         Log.d("RCMGX", msg);
     }
