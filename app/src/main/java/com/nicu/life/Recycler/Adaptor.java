@@ -1,5 +1,6 @@
 package com.nicu.life.Recycler;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.nicu.life.FirebaseClass.FireStorage;
+import com.nicu.life.ProductView;
 import com.nicu.life.R;
+import com.nicu.life.RoomView;
 
 public class Adaptor {
 
@@ -79,7 +82,6 @@ public class Adaptor {
     }
 
     public static class Product extends FirestoreRecyclerAdapter<Card.Product, Product.ProductHolder> {
-        private OnItemClickListener listener;
 
         public Product(@NonNull FirestoreRecyclerOptions<Card.Product> options) {
             super(options);
@@ -118,30 +120,21 @@ public class Adaptor {
                 qnt = itemView.findViewById(R.id.qnt);
                 img = itemView.findViewById(R.id.img);
 
-//                itemView.setOnClickListener(v -> {
-//                    int pos = getAdapterPosition();
-//                    if(pos!=RecyclerView.NO_POSITION && listener!=null) {
-//                        DocumentSnapshot currentSnapshot = getSnapshots().getSnapshot(pos);
-//
-//                        Intent classRoomIntent = new Intent(itemView.getContext() , MyClassRoom.class);
-//                        classRoomIntent.putExtra("courseId", currentSnapshot.getId());
-//                        itemView.getContext().startActivity(classRoomIntent);
-//                    }
-//                });
+                itemView.setOnClickListener(v -> {
+                    int pos = getAdapterPosition();
+                    if(pos!=RecyclerView.NO_POSITION) {
+                        DocumentSnapshot currentSnapshot = getSnapshots().getSnapshot(pos);
+
+                        Intent intent = new Intent(itemView.getContext() , ProductView.class);
+                        intent.putExtra("id", currentSnapshot.getId());
+                        itemView.getContext().startActivity(intent);
+                    }
+                });
             }
-        }
-
-        public interface OnItemClickListener {
-            void onItemClick(DocumentSnapshot documentSnapshot, int pos);
-        }
-
-        void setOnItemClickListener(OnItemClickListener listener) {
-            this.listener = listener;
         }
     }
 
     public static class ProductMenu extends FirestoreRecyclerAdapter<Card.Product, ProductMenu.ProductHolder> {
-        private OnItemClickListener listener;
 
         public ProductMenu(@NonNull FirestoreRecyclerOptions<Card.Product> options) {
             super(options);
@@ -174,30 +167,21 @@ public class Adaptor {
                 title = itemView.findViewById(R.id.title);
                 img = itemView.findViewById(R.id.img);
 
-//                itemView.setOnClickListener(v -> {
-//                    int pos = getAdapterPosition();
-//                    if(pos!=RecyclerView.NO_POSITION && listener!=null) {
-//                        DocumentSnapshot currentSnapshot = getSnapshots().getSnapshot(pos);
-//
-//                        Intent classRoomIntent = new Intent(itemView.getContext() , MyClassRoom.class);
-//                        classRoomIntent.putExtra("courseId", currentSnapshot.getId());
-//                        itemView.getContext().startActivity(classRoomIntent);
-//                    }
-//                });
+                itemView.setOnClickListener(v -> {
+                    int pos = getAdapterPosition();
+                    if(pos!=RecyclerView.NO_POSITION) {
+                        DocumentSnapshot currentSnapshot = getSnapshots().getSnapshot(pos);
+
+                        Intent intent = new Intent(itemView.getContext() , ProductView.class);
+                        intent.putExtra("id", currentSnapshot.getId());
+                        itemView.getContext().startActivity(intent);
+                    }
+                });
             }
-        }
-
-        public interface OnItemClickListener {
-            void onItemClick(DocumentSnapshot documentSnapshot, int pos);
-        }
-
-        void setOnItemClickListener(OnItemClickListener listener) {
-            this.listener = listener;
         }
     }
 
     public static class Room extends FirestoreRecyclerAdapter<Card.Room, Room.RoomHolder> {
-        private OnItemClickListener listener;
 
         public Room(@NonNull FirestoreRecyclerOptions<Card.Room> options) {
             super(options);
@@ -238,27 +222,19 @@ public class Adaptor {
                 toiletCount = itemView.findViewById(R.id.toilet);
                 img = itemView.findViewById(R.id.img);
 
-//                itemView.setOnClickListener(v -> {
-//                    int pos = getAdapterPosition();
-//                    if(pos!=RecyclerView.NO_POSITION && listener!=null) {
-//                        DocumentSnapshot currentSnapshot = getSnapshots().getSnapshot(pos);
-//
-//                        Intent classRoomIntent = new Intent(itemView.getContext() , MyClassRoom.class);
-//                        classRoomIntent.putExtra("courseId", currentSnapshot.getId());
-//                        itemView.getContext().startActivity(classRoomIntent);
-//                    }
-//                });
+                itemView.setOnClickListener(v -> {
+                    int pos = getAdapterPosition();
+                    if(pos!=RecyclerView.NO_POSITION) {
+                        DocumentSnapshot currentSnapshot = getSnapshots().getSnapshot(pos);
+
+                        Intent intent = new Intent(itemView.getContext() , RoomView.class);
+                        intent.putExtra("id", currentSnapshot.getId());
+                        itemView.getContext().startActivity(intent);
+                    }
+                });
             }
         }
-
-        public interface OnItemClickListener {
-            void onItemClick(DocumentSnapshot documentSnapshot, int pos);
-        }
-
-        void setOnItemClickListener(OnItemClickListener listener) {
-            this.listener = listener;
-        }
-    }
+   }
 
     public static class Service extends FirestoreRecyclerAdapter<Card.Service, Service.ServiceHolder> {
         private OnItemClickListener listener;

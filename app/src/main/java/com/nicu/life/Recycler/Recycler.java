@@ -49,7 +49,7 @@ public class Recycler {
         recyclerView.setAdapter(adaptor);
 
 //        adaptor.setOnItemClickListener((documentSnapshot, pos) -> {
-//            Card.Product product = documentSnapshot.toObject(Card.Product.class);
+//            Card.ProductView product = documentSnapshot.toObject(Card.ProductView.class);
 //        });
 
         adaptor.startListening();
@@ -68,7 +68,7 @@ public class Recycler {
         recyclerView.setAdapter(adaptor);
 
 //        adaptor.setOnItemClickListener((documentSnapshot, pos) -> {
-//            Card.Product product = documentSnapshot.toObject(Card.Product.class);
+//            Card.ProductView product = documentSnapshot.toObject(Card.ProductView.class);
 //        });
 
         adaptor.startListening();
@@ -87,7 +87,7 @@ public class Recycler {
         recyclerView.setAdapter(adaptor);
 
 //        adaptor.setOnItemClickListener((documentSnapshot, pos) -> {
-//            Card.Product product = documentSnapshot.toObject(Card.Product.class);
+//            Card.ProductView product = documentSnapshot.toObject(Card.ProductView.class);
 //        });
 
         adaptor.startListening();
@@ -103,7 +103,7 @@ public class Recycler {
         recyclerView.setAdapter(adaptor);
 
 //        adaptor.setOnItemClickListener((documentSnapshot, pos) -> {
-//            Card.Product product = documentSnapshot.toObject(Card.Product.class);
+//            Card.ProductView product = documentSnapshot.toObject(Card.ProductView.class);
 //        });
         adaptor.startListening();
     }
