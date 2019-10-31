@@ -196,6 +196,70 @@ public class Adaptor {
         }
     }
 
+    public static class Room extends FirestoreRecyclerAdapter<Card.Room, Room.RoomHolder> {
+        private OnItemClickListener listener;
+
+        public Room(@NonNull FirestoreRecyclerOptions<Card.Room> options) {
+            super(options);
+        }
+
+        @Override
+        protected void onBindViewHolder(@NonNull final RoomHolder viewHolder, int i, @NonNull Card.Room card) {
+            viewHolder.title.setText(card.getTitle());
+            viewHolder.price.setText("₹ "+card.getPrice().toString());
+            viewHolder.adress.setText(card.getAddress());
+            viewHolder.bedCount.setText(card.getRoom().toString());
+            viewHolder.toiletCount.setText(card.getToilet().toString());
+
+            try {
+                Glide.with(viewHolder.itemView.getContext()).applyDefaultRequestOptions(new RequestOptions().override(200, 200))
+                        .load(FireStorage.getInstance().getImgRef(card.getImg())).into(viewHolder.img);
+            } catch (Exception ex) {}
+        }
+
+        @NonNull
+        @Override
+        public RoomHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_room, parent, false);
+            return new RoomHolder(v);
+        }
+
+        public class RoomHolder extends RecyclerView.ViewHolder {
+            private TextView title, price, adress, bedCount, toiletCount;
+            private ImageView img;
+
+            public RoomHolder(@NonNull final View itemView) {
+                super(itemView);
+
+                title = itemView.findViewById(R.id.title);
+                price = itemView.findViewById(R.id.price);
+                adress = itemView.findViewById(R.id.adress);
+                bedCount = itemView.findViewById(R.id.bed);
+                toiletCount = itemView.findViewById(R.id.toilet);
+                img = itemView.findViewById(R.id.img);
+
+//                itemView.setOnClickListener(v -> {
+//                    int pos = getAdapterPosition();
+//                    if(pos!=RecyclerView.NO_POSITION && listener!=null) {
+//                        DocumentSnapshot currentSnapshot = getSnapshots().getSnapshot(pos);
+//
+//                        Intent classRoomIntent = new Intent(itemView.getContext() , MyClassRoom.class);
+//                        classRoomIntent.putExtra("courseId", currentSnapshot.getId());
+//                        itemView.getContext().startActivity(classRoomIntent);
+//                    }
+//                });
+            }
+        }
+
+        public interface OnItemClickListener {
+            void onItemClick(DocumentSnapshot documentSnapshot, int pos);
+        }
+
+        void setOnItemClickListener(OnItemClickListener listener) {
+            this.listener = listener;
+        }
+    }
+
     private static void pin(String msg) {
         Log.d("RCMGX", msg);
     }

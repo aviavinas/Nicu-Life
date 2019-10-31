@@ -56,4 +56,44 @@ public class Card {
             return price;
         }
     }
+
+    public static class Room {
+        private String title, address, img;
+        private Long price, room, toilet;
+
+        public Room() {}
+
+        public Room(String title, String address, String img, Long price, Long room, Long toilet) {
+            this.title = title;
+            this.address = address;
+            this.img = img;
+            this.price = price;
+            this.room = room;
+            this.toilet = toilet;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getAddress() {
+            return address;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public Long getPrice() {
+            return price;
+        }
+
+        public Long getRoom() {
+            return room;
+        }
+
+        public Long getToilet() {
+            return toilet;
+        }
+    }
 }

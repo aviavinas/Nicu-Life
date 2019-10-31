@@ -73,6 +73,25 @@ public class Recycler {
         adaptor.startListening();
     }
 
+    public void setRoomRecycler(Query query, int recyclerViewId) {
+        FirestoreRecyclerOptions<Card.Room> options = new FirestoreRecyclerOptions.Builder<Card.Room>().setQuery(query, Card.Room.class).build();
+
+        RecyclerView recyclerView = activity.findViewById(recyclerViewId);
+        Adaptor.Room adaptor = new Adaptor.Room(options);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adaptor);
+
+//        adaptor.setOnItemClickListener((documentSnapshot, pos) -> {
+//            Card.Product product = documentSnapshot.toObject(Card.Product.class);
+//        });
+
+        adaptor.startListening();
+    }
+
     private void pin(String msg) {
         Log.d("RCMGX", msg);
     }
