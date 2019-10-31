@@ -75,7 +75,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="300dp">
+            android:layout_height="280dp">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/roomRecycle"
@@ -83,6 +83,18 @@
                 android:layout_height="wrap_content"/>
 
         </ScrollView>
+
+        <TextView
+            android:layout_width="match_parent"
+            style="@style/title"
+            android:layout_weight="0.8"
+            android:text="Services" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/serviceRecycle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 

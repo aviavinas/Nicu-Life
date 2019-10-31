@@ -3,6 +3,7 @@ package com.nicu.life.Recycler;
 import android.app.Activity;
 import android.util.Log;
 
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -89,6 +90,21 @@ public class Recycler {
 //            Card.Product product = documentSnapshot.toObject(Card.Product.class);
 //        });
 
+        adaptor.startListening();
+    }
+
+    public void setServiceRecycler(Query query, int recyclerViewId) {
+        FirestoreRecyclerOptions<Card.Service> options = new FirestoreRecyclerOptions.Builder<Card.Service>().setQuery(query, Card.Service.class).build();
+
+        RecyclerView recyclerView = activity.findViewById(recyclerViewId);
+        Adaptor.Service adaptor = new Adaptor.Service(options);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(activity, 3));
+        recyclerView.setAdapter(adaptor);
+
+//        adaptor.setOnItemClickListener((documentSnapshot, pos) -> {
+//            Card.Product product = documentSnapshot.toObject(Card.Product.class);
+//        });
         adaptor.startListening();
     }
 

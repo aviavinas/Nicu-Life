@@ -96,4 +96,34 @@ public class Card {
             return toilet;
         }
     }
+
+    public static class Service {
+        private String name, desc, img;
+        private Long price;
+
+        public Service() {}
+
+        public Service(String name, String desc, String img, Long price) {
+            this.name = name;
+            this.desc = desc;
+            this.img = img;
+            this.price = price;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public Long getPrice() {
+            return price;
+        }
+    }
 }

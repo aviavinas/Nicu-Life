@@ -37,29 +37,20 @@ public class RoomFragment extends Fragment {
 
         locTxt = getActivity().findViewById(R.id.locTxt);
         db = FireStoreDB.getInstance(getActivity());
-        Query q1 = db.getDb().collection("rooms");
         Recycler recycler = new Recycler(getActivity());
+        Query q1 = db.getDb().collection("rooms"),
+              q2 = db.getDb().collection("services");
+
         recycler.setRoomRecycler(q1, R.id.roomRecycle);
+        recycler.setServiceRecycler(q2, R.id.serviceRecycle);
 
-        items.add("Mumbai");
-        items.add("Delhi");
-        items.add("Bengaluru");
-        items.add("Hyderabad");
-        items.add("Ahmedabad");
-        items.add("Chennai");
-        items.add("Kolkata");
-        items.add("Surat");
-        items.add("Pune");
-        items.add("Jaipur");
-        items.add("Lucknow");
-        items.add("Kanpur");
+        items.add("Phagwara");
+        items.add("Law gate");
 
-        spinnerDialog=new SpinnerDialog(getActivity(),items,"Select or Search City","Close Button Text");// With No Animation
-        spinnerDialog=new SpinnerDialog(getActivity(),items,"Select or Search City",R.style.DialogAnimations_SmileWindow,"Close Button Text");// With 	Animation
+        spinnerDialog = new SpinnerDialog(getActivity(),items,"Enter location",R.style.DialogAnimations_SmileWindow,"Close");
 
-        spinnerDialog.setCancellable(true); // for cancellable
-        spinnerDialog.setShowKeyboard(false);// for open keyboard by default
-
+        spinnerDialog.setCancellable(true);
+        spinnerDialog.setShowKeyboard(true);
 
         spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
             @Override
