@@ -1,6 +1,5 @@
 package com.nicu.life.ui.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.nicu.life.FirebaseClass.FireStoreDB;
 import com.nicu.life.R;
 import com.nicu.life.Recycler.Recycler;
-import com.nicu.life.RoomView;
 
 import java.util.ArrayList;
 
@@ -44,8 +42,6 @@ public class HomeFragment extends Fragment {
         db = FireStoreDB.getInstance(getActivity());
         runQuery(null);
         locationSel();
-
-        startActivity(new Intent(getContext(), RoomView.class));
     }
 
     private void runQuery(String loc) {

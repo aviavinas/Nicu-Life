@@ -52,9 +52,9 @@ public class ProductView extends AppCompatActivity {
         String pid = getIntent().getStringExtra("id");
         if(pid!=null && !pid.isEmpty()) {
             db.getDb().collection("product").document(pid).get().addOnSuccessListener(doc -> {
-                price = doc.getLong("priceVw");
-                titleVw.setText(doc.getString("titleVw"));
-                descVw.setText(doc.getString("descVw"));
+                price = doc.getLong("price");
+                titleVw.setText(doc.getString("title"));
+                descVw.setText(doc.getString("desc"));
                 priceVw.setText("₹ "+ price);
 
                 Glide.with(this).load(FireStorage.getInstance().getImgRef(doc.getString("img"))).into(img);
