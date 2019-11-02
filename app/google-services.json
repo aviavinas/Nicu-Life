@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "447002736758-j9c00906uhiqglne9jtkv69ish1loulf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nicu.life",
+            "certificate_hash": "1918370899f1cad3ca685b38bff93b075b62bb8b"
+          }
+        },
+        {
+          "client_id": "447002736758-rh65d0r0oimn66hg029vn84atklkn07v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nicu.life",
+            "certificate_hash": "f3265dda2a14fc07c73bbbf5d68e31f5e7d4a24b"
+          }
+        },
+        {
           "client_id": "447002736758-fdn8jutm3h28e9e9c5otbco94l9gj8a9.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -41,6 +41,7 @@ public class LoginPage extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 goHome();
             } else {
+                pin(String.valueOf(resultCode));
                 Toast.makeText(this, "Login failed :(", Toast.LENGTH_LONG).show();
             }
         }

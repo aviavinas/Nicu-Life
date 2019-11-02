@@ -1,10 +1,10 @@
 package com.nicu.life;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,8 +17,7 @@ public class RoomView extends AppCompatActivity {
     private TextView titleVw, priceVw, descVw, qntVw;
     private ImageView img, backBtn, addBtn;
     private Button bookBtn;
-    private int qnt = 1;
-    private Long price;
+    private Long price, qnt = 1L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +41,12 @@ public class RoomView extends AppCompatActivity {
         });
 
         bookBtn.setOnClickListener(v -> {
-            Toast.makeText(getBaseContext(), String.valueOf(price * qnt), Toast.LENGTH_LONG).show();
+            Intent checkout = new Intent(getBaseContext(), Checkout.class);
+            checkout.putExtra("item", titleVw.getText());
+            checkout.putExtra("qnt", qnt);
+            checkout.putExtra("amt", (Long)(price * qnt));
+            checkout.putExtra("detail", "Room booking for "+qnt+" month");
+            startActivity(checkout);
         });
 
         loadProduct();

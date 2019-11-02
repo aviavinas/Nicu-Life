@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.nicu.life.Checkout;
 import com.nicu.life.FirebaseClass.FireStorage;
 import com.nicu.life.ProductView;
 import com.nicu.life.R;
@@ -91,8 +93,16 @@ public class Adaptor {
         protected void onBindViewHolder(@NonNull final ProductHolder viewHolder, int i, @NonNull Card.Product card) {
             viewHolder.title.setText(card.getTitle());
             viewHolder.price.setText("₹ "+card.getPrice().toString());
-            viewHolder.qnt.setText("1");
             viewHolder.desc.setText(card.getDesc());
+
+            viewHolder.btnOrder.setOnClickListener(v -> {
+                Intent checkout = new Intent(viewHolder.itemView.getContext(), Checkout.class);
+                checkout.putExtra("item", card.getTitle());
+                checkout.putExtra("qnt", viewHolder.qnt);
+                checkout.putExtra("amt", (Long)(viewHolder.qnt*card.getPrice()));
+                checkout.putExtra("detail", "Food product");
+                viewHolder.itemView.getContext().startActivity(checkout);
+            });
 
             try {
                 Glide.with(viewHolder.itemView.getContext()).applyDefaultRequestOptions(new RequestOptions().override(132, 150))
@@ -108,8 +118,10 @@ public class Adaptor {
         }
 
         public class ProductHolder extends RecyclerView.ViewHolder {
-            private TextView title, qnt, price, desc;
-            private ImageView img;
+            private TextView title, qntVw, price, desc;
+            private ImageView img, btnAdd;
+            private Button btnOrder;
+            private Long qnt = 1L;
 
             public ProductHolder(@NonNull final View itemView) {
                 super(itemView);
@@ -117,8 +129,10 @@ public class Adaptor {
                 title = itemView.findViewById(R.id.title);
                 price = itemView.findViewById(R.id.price);
                 desc = itemView.findViewById(R.id.desc);
-                qnt = itemView.findViewById(R.id.qnt);
+                qntVw = itemView.findViewById(R.id.qnt);
                 img = itemView.findViewById(R.id.img);
+                btnAdd = itemView.findViewById(R.id.btn_add);
+                btnOrder = itemView.findViewById(R.id.btn_order);
 
                 itemView.setOnClickListener(v -> {
                     int pos = getAdapterPosition();
@@ -129,6 +143,10 @@ public class Adaptor {
                         intent.putExtra("id", currentSnapshot.getId());
                         itemView.getContext().startActivity(intent);
                     }
+                });
+
+                btnAdd.setOnClickListener(v -> {
+                    qntVw.setText(String.valueOf(++qnt));
                 });
             }
         }

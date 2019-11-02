@@ -8,4 +8,5 @@
     <color name="colorBlack">#000</color>
     <color name="colorDark">#444</color>
     <color name="colorDarkLight">#8444</color>
+    <color name="colorHighlight">#80FFFFFF</color>
 </resources>
