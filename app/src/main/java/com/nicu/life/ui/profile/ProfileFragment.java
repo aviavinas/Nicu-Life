@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +24,7 @@ public class ProfileFragment extends Fragment {
     private ProfileViewModel profileViewModel;
     private FirebaseAuth mAuth;
     private ImageView avatar;
-    private Button signout;
+    private View signout;
     private TextView name, email;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

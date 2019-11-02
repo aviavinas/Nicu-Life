@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".Checkout"></activity>
+        <activity android:name=".ServiceView"></activity>
+        <activity android:name=".Checkout" />
         <activity android:name=".RoomView" />
         <activity android:name=".ProductView" />
         <activity android:name=".LoginPage">

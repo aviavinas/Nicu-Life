@@ -22,6 +22,7 @@ import com.nicu.life.FirebaseClass.FireStorage;
 import com.nicu.life.ProductView;
 import com.nicu.life.R;
 import com.nicu.life.RoomView;
+import com.nicu.life.ServiceView;
 
 public class Adaptor {
 
@@ -255,7 +256,6 @@ public class Adaptor {
    }
 
     public static class Service extends FirestoreRecyclerAdapter<Card.Service, Service.ServiceHolder> {
-        private OnItemClickListener listener;
 
         public Service(@NonNull FirestoreRecyclerOptions<Card.Service> options) {
             super(options);
@@ -288,25 +288,17 @@ public class Adaptor {
                 name = itemView.findViewById(R.id.name);
                 img = itemView.findViewById(R.id.img);
 
-//                itemView.setOnClickListener(v -> {
-//                    int pos = getAdapterPosition();
-//                    if(pos!=RecyclerView.NO_POSITION && listener!=null) {
-//                        DocumentSnapshot currentSnapshot = getSnapshots().getSnapshot(pos);
-//
-//                        Intent classRoomIntent = new Intent(itemView.getContext() , MyClassRoom.class);
-//                        classServiceIntent.putExtra("courseId", currentSnapshot.getId());
-//                        itemView.getContext().startActivity(classRoomIntent);
-//                    }
-//                });
+                itemView.setOnClickListener(v -> {
+                    int pos = getAdapterPosition();
+                    if(pos!=RecyclerView.NO_POSITION) {
+                        DocumentSnapshot currentSnapshot = getSnapshots().getSnapshot(pos);
+
+                        Intent intent = new Intent(itemView.getContext() , ServiceView.class);
+                        intent.putExtra("id", currentSnapshot.getId());
+                        itemView.getContext().startActivity(intent);
+                    }
+                });
             }
-        }
-
-        public interface OnItemClickListener {
-            void onItemClick(DocumentSnapshot documentSnapshot, int pos);
-        }
-
-        void setOnItemClickListener(OnItemClickListener listener) {
-            this.listener = listener;
         }
     }
 

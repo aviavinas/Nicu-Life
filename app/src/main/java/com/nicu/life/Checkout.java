@@ -25,7 +25,7 @@ public class Checkout extends AppCompatActivity {
     private Map<String, Object> order = new HashMap<>();
     private ProgressBar progressBar;
     private Button payBtn;
-    private ImageView tick;
+    private ImageView tick, back;
     private FireStoreDB db;
 
     @Override
@@ -47,7 +47,9 @@ public class Checkout extends AppCompatActivity {
         date = findViewById(R.id.date);
         payBtn = findViewById(R.id.payBtn);
         tick = findViewById(R.id.tick);
+        back = findViewById(R.id.back);
 
+        back.setOnClickListener(v -> finish());
         payBtn.setOnClickListener(v -> saveOrder());
 
         showOrder();
