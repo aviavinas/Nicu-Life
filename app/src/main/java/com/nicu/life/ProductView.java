@@ -14,9 +14,10 @@ import com.nicu.life.FirebaseClass.FireStoreDB;
 
 public class ProductView extends AppCompatActivity {
     private FireStoreDB db;
-    private TextView titleVw, priceVw, descVw, qntVw;
+    private TextView titleVw, priceVw, descVw, qntVw, storeVw;
     private ImageView img, backBtn, addBtn;
     private Button orderBtn;
+    private String storeName;
     private Long price, qnt = 1L;
 
     @Override
@@ -29,6 +30,7 @@ public class ProductView extends AppCompatActivity {
         descVw = findViewById(R.id.desc);
         priceVw = findViewById(R.id.price);
         qntVw = findViewById(R.id.qnt);
+        storeVw = findViewById(R.id.store);
         img = findViewById(R.id.img);
         backBtn = findViewById(R.id.btn_back);
         addBtn = findViewById(R.id.btn_add);
@@ -44,6 +46,7 @@ public class ProductView extends AppCompatActivity {
             Intent checkout = new Intent(getBaseContext(), Checkout.class);
             checkout.putExtra("item", titleVw.getText());
             checkout.putExtra("qnt", qnt);
+            checkout.putExtra("store", storeName);
             checkout.putExtra("amt", (Long)(price * qnt));
             checkout.putExtra("detail", "Food product");
             startActivity(checkout);
@@ -57,9 +60,11 @@ public class ProductView extends AppCompatActivity {
         if(pid!=null && !pid.isEmpty()) {
             db.getDb().collection("product").document(pid).get().addOnSuccessListener(doc -> {
                 price = doc.getLong("price");
+                storeName = doc.getString("store");
                 titleVw.setText(doc.getString("title"));
                 descVw.setText(doc.getString("desc"));
                 priceVw.setText("₹ "+ price);
+                storeVw.setText("From - "+ storeName);
 
                 Glide.with(this).load(FireStorage.getInstance().getImgRef(doc.getString("img"))).into(img);
             });

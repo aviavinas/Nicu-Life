@@ -30,4 +30,14 @@
         <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_top</item>
     </style>
+
+    <style name="foodCatIcon">
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:stateListAnimator">@drawable/icon_state_selector</item>
+    </style>
+    <style name="foodCatLabel">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">11sp</item>
+    </style>
 </resources>

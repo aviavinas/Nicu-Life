@@ -17,11 +17,11 @@ public class Recycler {
         activity = a;
     }
 
-    public void setCategoryRecycler(Query query, int recyclerViewId) {
-        FirestoreRecyclerOptions<Card.Category> options = new FirestoreRecyclerOptions.Builder<Card.Category>().setQuery(query, Card.Category.class).build();
+    public void setShopRecycler(Query query, int recyclerViewId) {
+        FirestoreRecyclerOptions<Card.Shop> options = new FirestoreRecyclerOptions.Builder<Card.Shop>().setQuery(query, Card.Shop.class).build();
 
         RecyclerView recyclerView = activity.findViewById(recyclerViewId);
-        Adaptor.Category adaptor = new Adaptor.Category(options);
+        Adaptor.ShopAdaptor adaptor = new Adaptor.ShopAdaptor(options);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
         layoutManager.setOrientation(RecyclerView.HORIZONTAL);
@@ -29,14 +29,25 @@ public class Recycler {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adaptor);
 
-//        adaptor.setOnItemClickListener((documentSnapshot, pos) -> {
-//            Card.Category category = documentSnapshot.toObject(Card.Category.class);
-//        });
-
         adaptor.startListening();
     }
 
     public void setProductRecycler(Query query, int recyclerViewId) {
+        FirestoreRecyclerOptions<Card.Product> options = new FirestoreRecyclerOptions.Builder<Card.Product>().setQuery(query, Card.Product.class).build();
+
+        RecyclerView recyclerView = activity.findViewById(recyclerViewId);
+        Adaptor.ProductAct adaptor = new Adaptor.ProductAct(options);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
+        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
+
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adaptor);
+
+        adaptor.startListening();
+    }
+
+    public void setProductMenuRecycler(Query query, int recyclerViewId) {
         FirestoreRecyclerOptions<Card.Product> options = new FirestoreRecyclerOptions.Builder<Card.Product>().setQuery(query, Card.Product.class).build();
 
         RecyclerView recyclerView = activity.findViewById(recyclerViewId);
@@ -48,28 +59,17 @@ public class Recycler {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adaptor);
 
-//        adaptor.setOnItemClickListener((documentSnapshot, pos) -> {
-//            Card.ProductView product = documentSnapshot.toObject(Card.ProductView.class);
-//        });
-
         adaptor.startListening();
     }
 
-    public void setProductMenuRecycler(Query query, int recyclerViewId) {
+    public void setProdGridRecycler(Query query, int recyclerViewId) {
         FirestoreRecyclerOptions<Card.Product> options = new FirestoreRecyclerOptions.Builder<Card.Product>().setQuery(query, Card.Product.class).build();
 
         RecyclerView recyclerView = activity.findViewById(recyclerViewId);
-        Adaptor.ProductMenu adaptor = new Adaptor.ProductMenu(options);
+        Adaptor.ProductL adaptor = new Adaptor.ProductL(options);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
-        layoutManager.setOrientation(RecyclerView.HORIZONTAL);
-
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new GridLayoutManager(activity, 2));
         recyclerView.setAdapter(adaptor);
-
-//        adaptor.setOnItemClickListener((documentSnapshot, pos) -> {
-//            Card.ProductView product = documentSnapshot.toObject(Card.ProductView.class);
-//        });
 
         adaptor.startListening();
     }
@@ -86,10 +86,6 @@ public class Recycler {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adaptor);
 
-//        adaptor.setOnItemClickListener((documentSnapshot, pos) -> {
-//            Card.ProductView product = documentSnapshot.toObject(Card.ProductView.class);
-//        });
-
         adaptor.startListening();
     }
 
@@ -102,9 +98,21 @@ public class Recycler {
         recyclerView.setLayoutManager(new GridLayoutManager(activity, 3));
         recyclerView.setAdapter(adaptor);
 
-//        adaptor.setOnItemClickListener((documentSnapshot, pos) -> {
-//            Card.ProductView product = documentSnapshot.toObject(Card.ProductView.class);
-//        });
+        adaptor.startListening();
+    }
+
+    public void setOrderRecycler(Query query, int recyclerViewId) {
+        FirestoreRecyclerOptions<Card.Order> options = new FirestoreRecyclerOptions.Builder<Card.Order>().setQuery(query, Card.Order.class).build();
+
+        RecyclerView recyclerView = activity.findViewById(recyclerViewId);
+        Adaptor.Order adaptor = new Adaptor.Order(options);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(activity);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adaptor);
+
         adaptor.startListening();
     }
 

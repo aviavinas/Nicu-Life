@@ -9,4 +9,18 @@
     <color name="colorDark">#444</color>
     <color name="colorDarkLight">#8444</color>
     <color name="colorHighlight">#80FFFFFF</color>
+
+    <color name="grad1A">#17EAD9</color>
+    <color name="grad1B">#6078EA</color>
+    <color name="grad2A">#F54EA2</color>
+    <color name="grad2B">#FF7676</color>
+    <color name="grad3A">#50448D</color>
+    <color name="grad3B">#6078EA</color>
+    <color name="grad4A">#ff9800</color>
+    <color name="grad4B">#ffc107</color>
+    <color name="grad5A">#FF5F6D</color>
+    <color name="grad5B">#FFC371</color>
+    <color name="grad6A">#EA4757</color>
+    <color name="grad6B">#A50920</color>
+
 </resources>

@@ -1,6 +1,7 @@
 package com.nicu.life.ui.profile;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,12 +20,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.nicu.life.LoginPage;
 import com.nicu.life.R;
+import com.nicu.life.ViewOrders;
 
 public class ProfileFragment extends Fragment {
     private ProfileViewModel profileViewModel;
     private FirebaseAuth mAuth;
     private ImageView avatar;
-    private View signout;
+    private View actOrder, actMeet, actContact, signout;
     private TextView name, email;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +44,9 @@ public class ProfileFragment extends Fragment {
         avatar = getActivity().findViewById(R.id.avatar);
         name = getActivity().findViewById(R.id.fullname);
         email = getActivity().findViewById(R.id.email);
+        actOrder = getActivity().findViewById(R.id.act_order);
+        actMeet = getActivity().findViewById(R.id.act_meet);
+        actContact = getActivity().findViewById(R.id.act_contact);
         signout = getActivity().findViewById(R.id.signout);
 
         name.setText(currentUser.getDisplayName());
@@ -49,14 +54,28 @@ public class ProfileFragment extends Fragment {
 
         Glide.with(getActivity()).load(currentUser.getPhotoUrl()).into(avatar);
 
-        signout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                Intent login = new Intent(getContext(), LoginPage.class);
-                getActivity().finish();
-                startActivity(login);
-            }
+        actOrder.setOnClickListener(v -> {
+            startActivity(new Intent(getContext(), ViewOrders.class));
+        });
+
+        actMeet.setOnClickListener(v -> {
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse("https://maps.app.goo.gl/5YCtfqt5au5q1rHx7"));
+            startActivity(intent);
+        });
+
+        actContact.setOnClickListener(v -> {
+            String mobileNumber = "9123456789";
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel: " + mobileNumber));
+            startActivity(intent);
+        });
+
+        signout.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent login = new Intent(getContext(), LoginPage.class);
+            getActivity().finish();
+            startActivity(login);
         });
     }
 

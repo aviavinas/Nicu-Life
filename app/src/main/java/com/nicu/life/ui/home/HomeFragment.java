@@ -11,18 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.nicu.life.FirebaseClass.FireStoreDB;
 import com.nicu.life.R;
 import com.nicu.life.Recycler.Recycler;
 
 import java.util.ArrayList;
 
-import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
 import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 
 public class HomeFragment extends Fragment {
@@ -46,17 +42,16 @@ public class HomeFragment extends Fragment {
 
     private void runQuery(String loc) {
         Recycler recycler = new Recycler(getActivity());
-        Query q1 = db.getDb().collection("category");
+        Query q1 = db.getDb().collection("stores");
         Query q2 = db.getDb().collection("product");
         Query q3 = db.getDb().collection("product");
 
         if(loc!=null && !loc.isEmpty()) {
-            q1 = q1.whereEqualTo("area", loc);
             q2 = q2.whereEqualTo("area", loc);
             q3 = q3.whereEqualTo("area", loc);
         }
 
-        recycler.setCategoryRecycler(q1, R.id.catRecycle);
+        recycler.setShopRecycler(q1, R.id.storeRecycle);
         recycler.setProductRecycler(q2, R.id.prodRecycle);
         recycler.setProductMenuRecycler(q3, R.id.prodMenuRecycle);
     }
@@ -64,14 +59,11 @@ public class HomeFragment extends Fragment {
     private void locationSel() {
         final SpinnerDialog spinnerDialog;
 
-        db.getDb().collection("area").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+        db.getDb().collection("area").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 for (QueryDocumentSnapshot doc : task.getResult()) {
                     items.add(doc.getString("name"));
                 }
-            }
             }
         });
 
@@ -80,20 +72,12 @@ public class HomeFragment extends Fragment {
         spinnerDialog.setCancellable(true);
         spinnerDialog.setShowKeyboard(true);
 
-        spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
-            @Override
-            public void onClick(String item, int position) {
-                Toast.makeText(getContext(), "Showing from "+item, Toast.LENGTH_SHORT).show();
-                switchLocation(item);
-            }
+        spinnerDialog.bindOnSpinerListener((item, position) -> {
+            Toast.makeText(getContext(), "Showing from "+item, Toast.LENGTH_SHORT).show();
+            switchLocation(item);
         });
 
-        getActivity().findViewById(R.id.location1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                spinnerDialog.showSpinerDialog();
-            }
-        });
+        getActivity().findViewById(R.id.location1).setOnClickListener(v -> spinnerDialog.showSpinerDialog());
     }
 
     private void switchLocation(String loc) {

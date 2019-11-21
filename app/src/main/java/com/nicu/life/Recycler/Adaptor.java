@@ -23,70 +23,64 @@ import com.nicu.life.ProductView;
 import com.nicu.life.R;
 import com.nicu.life.RoomView;
 import com.nicu.life.ServiceView;
+import com.nicu.life.ShopView;
+
+import java.text.SimpleDateFormat;
 
 public class Adaptor {
 
-    public static class Category extends FirestoreRecyclerAdapter<Card.Category, Category.CategoryHolder> {
-        private OnItemClickListener listener;
+    public static class ShopAdaptor extends FirestoreRecyclerAdapter<Card.Shop, ShopAdaptor.ShopHolder> {
 
-        public Category(@NonNull FirestoreRecyclerOptions<Card.Category> options) {
+        public ShopAdaptor(@NonNull FirestoreRecyclerOptions<Card.Shop> options) {
             super(options);
         }
 
         @Override
-        protected void onBindViewHolder(@NonNull final CategoryHolder viewHolder, int i, @NonNull Card.Category card) {
-            viewHolder.title.setText(card.getName());
-            viewHolder.count.setText(card.getCount()+" flavours");
+        protected void onBindViewHolder(@NonNull final ShopHolder holder, int i, @NonNull Card.Shop shopCard) {
+            holder.name.setText(shopCard.getName());
 
-            try {
-                Glide.with(viewHolder.itemView.getContext())
-                        .applyDefaultRequestOptions(new RequestOptions().override(40, 40))
-                        .load(FireStorage.getInstance().getImgRef(card.getIcon())).into(viewHolder.icon);
-            } catch (Exception ex) {}
+            // Set Profile Image Icon
+            Glide.with(holder.itemView.getContext())
+                    .applyDefaultRequestOptions(new RequestOptions().override(80, 80))
+                    .load(holder.itemView.getContext().getResources().getIdentifier(
+                            "store"+((i%6)+1),"drawable", holder.itemView.getContext().getPackageName()
+                    )).into(holder.img);
         }
 
         @NonNull
         @Override
-        public CategoryHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_category, parent, false);
-            return new CategoryHolder(v);
+        public ShopHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_store, parent, false);
+            return new ShopHolder(v);
         }
 
-        public class CategoryHolder extends RecyclerView.ViewHolder {
-            private TextView title, count;
-            private ImageView icon;
+        public class ShopHolder extends RecyclerView.ViewHolder {
+            private TextView name;
+            private ImageView img;
 
-            public CategoryHolder(@NonNull final View itemView) {
+            public ShopHolder(@NonNull final View itemView) {
                 super(itemView);
-                icon = itemView.findViewById(R.id.icon);
-                title = itemView.findViewById(R.id.title);
-                count = itemView.findViewById(R.id.count);
+                name = itemView.findViewById(R.id.shopCardTitle);
+                img = itemView.findViewById(R.id.shopCardImg);
 
-//                itemView.setOnClickListener(v -> {
-//                    int pos = getAdapterPosition();
-//                    if(pos!=RecyclerView.NO_POSITION && listener!=null) {
-//                        DocumentSnapshot currentSnapshot = getSnapshots().getSnapshot(pos);
-//
-//                        Intent classRoomIntent = new Intent(itemView.getContext() , MyClassRoom.class);
-//                        classRoomIntent.putExtra("courseId", currentSnapshot.getId());
-//                        itemView.getContext().startActivity(classRoomIntent);
-//                    }
-//                });
+                itemView.setOnClickListener(v -> {
+                    int pos = getAdapterPosition();
+                    if(pos!=RecyclerView.NO_POSITION) {
+                        DocumentSnapshot currentSnapshot = getSnapshots().getSnapshot(pos);
+
+                        Intent intent = new Intent(itemView.getContext() , ShopView.class);
+                        intent.putExtra("id", currentSnapshot.getId());
+                        intent.putExtra("name", currentSnapshot.getString("name"));
+                        itemView.getContext().startActivity(intent);
+                    }
+                });
             }
         }
-
-        public interface OnItemClickListener {
-            void onItemClick(DocumentSnapshot documentSnapshot, int pos);
-        }
-
-        void setOnItemClickListener(OnItemClickListener listener) {
-            this.listener = listener;
-        }
     }
+    
+    public static class ProductAct extends FirestoreRecyclerAdapter<Card.Product, ProductAct.ProductHolder> {
 
-    public static class Product extends FirestoreRecyclerAdapter<Card.Product, Product.ProductHolder> {
-
-        public Product(@NonNull FirestoreRecyclerOptions<Card.Product> options) {
+        public ProductAct(@NonNull FirestoreRecyclerOptions<Card.Product> options) {
             super(options);
         }
 
@@ -153,9 +147,9 @@ public class Adaptor {
         }
     }
 
-    public static class ProductMenu extends FirestoreRecyclerAdapter<Card.Product, ProductMenu.ProductHolder> {
+    public static class Product extends FirestoreRecyclerAdapter<Card.Product, Product.ProductHolder> {
 
-        public ProductMenu(@NonNull FirestoreRecyclerOptions<Card.Product> options) {
+        public Product(@NonNull FirestoreRecyclerOptions<Card.Product> options) {
             super(options);
         }
 
@@ -172,7 +166,54 @@ public class Adaptor {
         @NonNull
         @Override
         public ProductHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_menu, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_prod, parent, false);
+            return new ProductHolder(v);
+        }
+
+        public class ProductHolder extends RecyclerView.ViewHolder {
+            private TextView title;
+            private ImageView img;
+
+            public ProductHolder(@NonNull final View itemView) {
+                super(itemView);
+
+                title = itemView.findViewById(R.id.title);
+                img = itemView.findViewById(R.id.img);
+
+                itemView.setOnClickListener(v -> {
+                    int pos = getAdapterPosition();
+                    if(pos!=RecyclerView.NO_POSITION) {
+                        DocumentSnapshot currentSnapshot = getSnapshots().getSnapshot(pos);
+
+                        Intent intent = new Intent(itemView.getContext() , ProductView.class);
+                        intent.putExtra("id", currentSnapshot.getId());
+                        itemView.getContext().startActivity(intent);
+                    }
+                });
+            }
+        }
+    }
+
+    public static class ProductL extends FirestoreRecyclerAdapter<Card.Product, ProductL.ProductHolder> {
+
+        public ProductL(@NonNull FirestoreRecyclerOptions<Card.Product> options) {
+            super(options);
+        }
+
+        @Override
+        protected void onBindViewHolder(@NonNull final ProductHolder viewHolder, int i, @NonNull Card.Product card) {
+            viewHolder.title.setText(card.getTitle());
+
+            try {
+                Glide.with(viewHolder.itemView.getContext()).applyDefaultRequestOptions(new RequestOptions().override(132, 150))
+                        .load(FireStorage.getInstance().getImgRef(card.getImg())).into(viewHolder.img);
+            } catch (Exception ex) {}
+        }
+
+        @NonNull
+        @Override
+        public ProductHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_prod_large, parent, false);
             return new ProductHolder(v);
         }
 
@@ -298,6 +339,43 @@ public class Adaptor {
                         itemView.getContext().startActivity(intent);
                     }
                 });
+            }
+        }
+    }
+
+    public static class Order extends FirestoreRecyclerAdapter<Card.Order, Order.OrderHolder> {
+
+        public Order(@NonNull FirestoreRecyclerOptions<Card.Order> options) {
+            super(options);
+        }
+
+        @Override
+        protected void onBindViewHolder(@NonNull final OrderHolder viewHolder, int i, @NonNull Card.Order card) {
+            viewHolder.orderId.setText("#"+card.getOrderId());
+            viewHolder.item.setText(card.getItem());
+            viewHolder.qnt.setText(card.getQnt().toString());
+            viewHolder.price.setText("₹ "+card.getAmt());
+            viewHolder.date.setText(new SimpleDateFormat("HH:mm:ss dd MMM yyyy").format(card.getDate()));
+        }
+
+        @NonNull
+        @Override
+        public OrderHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_order, parent, false);
+            return new OrderHolder(v);
+        }
+
+        public class OrderHolder extends RecyclerView.ViewHolder {
+            private TextView orderId, item, qnt, price, date;
+
+            public OrderHolder(@NonNull final View itemView) {
+                super(itemView);
+
+                orderId = itemView.findViewById(R.id.orderId);
+                item = itemView.findViewById(R.id.title);
+                qnt = itemView.findViewById(R.id.qnt);
+                price = itemView.findViewById(R.id.price);
+                date = itemView.findViewById(R.id.date);
             }
         }
     }

@@ -1,29 +1,25 @@
 package com.nicu.life.Recycler;
 
+import java.util.Date;
+
 public class Card {
 
-    public static class Category {
-        private String name, icon;
-        private Long count;
+    public static class Shop {
+        private String name, address;
 
-        public Category() {}
+        public Shop() {}
 
-        public Category(String name, String icon, Long count) {
+        public Shop(String name, String address) {
             this.name = name;
-            this.icon = icon;
-            this.count = count;
+            this.address = address;
         }
 
         public String getName() {
             return name;
         }
 
-        public String getIcon() {
-            return icon;
-        }
-
-        public Long getCount() {
-            return count;
+        public String getAddress() {
+            return address;
         }
     }
 
@@ -124,6 +120,42 @@ public class Card {
 
         public Long getPrice() {
             return price;
+        }
+    }
+
+    public static class Order {
+        private String item;
+        private Long qnt, amt, orderId;
+        private Date date;
+
+        public Order() {}
+
+        public Order(String item, Long qnt, Long amt, Long orderId, Date date) {
+            this.item = item;
+            this.qnt = qnt;
+            this.amt = amt;
+            this.orderId = orderId;
+            this.date = date;
+        }
+
+        public String getItem() {
+            return item;
+        }
+
+        public Long getQnt() {
+            return qnt;
+        }
+
+        public Long getAmt() {
+            return amt;
+        }
+
+        public Long getOrderId() {
+            return orderId;
+        }
+
+        public Date getDate() {
+            return date;
         }
     }
 }

@@ -62,15 +62,6 @@
                 android:layout_weight="0.8"
                 android:text="Rooms Nearby" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="View all"
-                android:padding="4dp"
-                android:layout_weight="0.2"
-                android:textAlignment="center"
-                android:textColor="@color/colorDark" />
-
         </LinearLayout>
 
         <ScrollView

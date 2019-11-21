@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/shopCardImg"
+                style="@style/foodCatIcon"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:alpha="1"
+                android:background="@drawable/circle"
+                android:clickable="?android:attr/windowOverscan"
+                android:contextClickable="false"
+                android:focusableInTouchMode="true"
+                app:srcCompat="@drawable/store1" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/shopCardTitle"
+            style="@style/foodCatLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Silver Spoon" />
+
+    </LinearLayout>
+
+</FrameLayout>
